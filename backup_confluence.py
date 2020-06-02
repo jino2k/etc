@@ -30,15 +30,20 @@ else:
 ########### backup confluence home folder #############################
 current_dir = f"{today}/confluence"
 conf_home = "/var/atlassian/application-data/confluence"
-cmd = f'''echo "sean" | sudo cp -ar {conf_home} {current_dir}'''
+cmd = f'''echo "sean" | sudo cp -r {conf_home} {current_dir}'''
 returned_value = os.system(cmd)  # returns the exit code in unix
 print('confluence home copy returned value:', returned_value)
+
+cmd = f'''echo "sean" | sudo chown -R jino:jino {current_dir}'''
+returned_value = os.system(cmd)  # returns the exit code in unix
+
+print('confluence home chown returned value:', returned_value)
 
 #########    Delete the oldest backup directories if the backup folder exceeds 10   ###########
 onlybackupfolders = [f for f in listdir(".") if not isfile(f) and f[0:2] == "20"]
 onlybackupfolders.sort()
 
-print(f"length is {len(onlybackupfolders)}")
+print(f"number of backup folder is {len(onlybackupfolders)}")
 if len(onlybackupfolders) > MAX_BACKUP_DIRECTORIES:
     try:
         shutil.rmtree(onlybackupfolders[0])

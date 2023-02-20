@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: apa000kube
-  replicas: 3
+  replicas: 5
   template:
     metadata:
       labels:
@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: apa000ex91
-        image: httpd
+        image: nginx
         ports:
         - containerPort: 80
